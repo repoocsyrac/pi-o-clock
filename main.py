@@ -14,6 +14,9 @@ def play_alarm(sound_file):
     pygame.mixer.music.load(sound_file)
     pygame.mixer.music.play()
 
+def stop_alarm():
+    pygame.mixer.music.stop()
+
 def check_alarms():
     now = datetime.now()
     for alarm in alarms:
@@ -84,6 +87,8 @@ set_alarm_button = tk.Button(root, text="Set Alarm", command=open_alarm_setting,
 set_alarm_button.pack(pady=10)
 alarm_list_frame = tk.Frame(root)
 alarm_list_frame.pack()
+stop_alarm_button = tk.Button(root, text="Stop Alarm", command=stop_alarm, font=("Helvetica", 16))
+stop_alarm_button.pack(pady=10)
 
 # Start updating the clock
 update_time()
