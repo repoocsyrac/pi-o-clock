@@ -29,14 +29,14 @@ def open_alarm_setting():
     minute_var = tk.StringVar(value="30")
     sound_var = tk.StringVar(value="default.wav")
 
-    tk.Label(setting_window, text="Hour").pack()
-    tk.Entry(setting_window, textvariable=hour_var).pack()
+    tk.Label(setting_window, text="Hour").pack(pady=5, padx=50)
+    tk.Entry(setting_window, textvariable=hour_var).pack(pady=5, padx=50)
     
-    tk.Label(setting_window, text="Minute").pack()
-    tk.Entry(setting_window, textvariable=minute_var).pack()
+    tk.Label(setting_window, text="Minute").pack(pady=5, padx=50)
+    tk.Entry(setting_window, textvariable=minute_var).pack(pady=5, padx=50)
 
-    tk.Label(setting_window, text="Alarm Sound").pack()
-    tk.Entry(setting_window, textvariable=sound_var).pack()
+    tk.Label(setting_window, text="Alarm Sound").pack(pady=5, padx=50)
+    tk.Entry(setting_window, textvariable=sound_var).pack(pady=5, padx=50)
 
     def save_alarm():
         hour = int(hour_var.get())
@@ -45,23 +45,30 @@ def open_alarm_setting():
         add_alarm(hour, minute, sound)
         setting_window.destroy()
 
-    tk.Button(setting_window, text="Save", command=save_alarm).pack()
+    tk.Button(setting_window, text="Save", command=save_alarm).pack(pady=10, padx=10)
 
     setting_window.mainloop()
 
 
 
-
+# Init pygame mixer for sound
 pygame.mixer.init()
 
+# Main window
 root = tk.Tk()
 root.title("Pi-o-Clock")
 root.geometry("480x320")
 
-alarms = []  # List to store alarm times and sounds
+# List to store alarm times and sounds
+alarms = []
 
+# UI Elements
 time_label = tk.Label(root, text="", font=("Helvetica", 48))
 time_label.pack(expand=True)
+set_alarm_button = tk.Button(root, text="Set Alarm", command=open_alarm_setting, font=("Helvetica", 16))
+set_alarm_button.pack(pady=10)
 
+# Start updating the clock
 update_time()
+
 root.mainloop()
