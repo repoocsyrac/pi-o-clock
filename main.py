@@ -1,5 +1,6 @@
 import tkinter as tk
 from datetime import datetime
+import pygame
 
 def update_time():
     now = datetime.now().strftime("%H:%M:%S")
@@ -8,6 +9,12 @@ def update_time():
 
 def add_alarm(hour, minute, sound):
     alarms.append({"hour": hour, "minute": minute, "sound": sound})
+
+def play_alarm(sound_file):
+    pygame.mixer.music.load(sound_file)
+    pygame.mixer.music.play()
+    
+pygame.mixer.init()
 
 root = tk.Tk()
 root.title("Pi-o-Clock")
