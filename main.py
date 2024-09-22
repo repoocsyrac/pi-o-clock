@@ -21,7 +21,37 @@ def check_alarms():
             play_alarm(alarm['sound'])
     root.after(60000, check_alarms)  # Check every minute
 
+def open_alarm_setting():
+    setting_window = tk.Toplevel(root)
+    setting_window.title("Set Alarm")
+
+    hour_var = tk.StringVar(value="06")  # Default to 6:30 AM
+    minute_var = tk.StringVar(value="30")
+    sound_var = tk.StringVar(value="default.wav")
+
+    tk.Label(setting_window, text="Hour").pack()
+    tk.Entry(setting_window, textvariable=hour_var).pack()
     
+    tk.Label(setting_window, text="Minute").pack()
+    tk.Entry(setting_window, textvariable=minute_var).pack()
+
+    tk.Label(setting_window, text="Alarm Sound").pack()
+    tk.Entry(setting_window, textvariable=sound_var).pack()
+
+    def save_alarm():
+        hour = int(hour_var.get())
+        minute = int(minute_var.get())
+        sound = sound_var.get()
+        add_alarm(hour, minute, sound)
+        setting_window.destroy()
+
+    tk.Button(setting_window, text="Save", command=save_alarm).pack()
+
+    setting_window.mainloop()
+
+
+
+
 pygame.mixer.init()
 
 root = tk.Tk()
