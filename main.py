@@ -8,7 +8,7 @@ def update_time():
     root.after(1000, update_time)
 
 def add_alarm(hour, minute, sound):
-    alarms.append({"hour": hour, "minute": minute, "sound": sound})
+    alarms.append({"hour": hour, "minute": minute, "sound": sound, "has_rung": False})
 
 def play_alarm(sound_file):
     pygame.mixer.music.load(sound_file)
@@ -17,9 +17,10 @@ def play_alarm(sound_file):
 def check_alarms():
     now = datetime.now()
     for alarm in alarms:
-        if now.hour == alarm['hour'] and now.minute == alarm['minute']:
+        if now.hour == alarm['hour'] and now.minute == alarm['minute'] and not alarm['has_rung']:
             play_alarm(alarm['sound'])
-    root.after(60000, check_alarms)  # Check every minute
+            alarm['has_rung'] = True
+    root.after(1000, check_alarms)  # Check every second
 
 def open_alarm_setting():
     setting_window = tk.Toplevel(root)
@@ -86,5 +87,7 @@ alarm_list_frame.pack()
 
 # Start updating the clock
 update_time()
+# Start checking for alarms
+check_alarms()
 
 root.mainloop()
