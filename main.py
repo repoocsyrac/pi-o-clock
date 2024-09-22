@@ -13,6 +13,14 @@ def add_alarm(hour, minute, sound):
 def play_alarm(sound_file):
     pygame.mixer.music.load(sound_file)
     pygame.mixer.music.play()
+
+def check_alarms():
+    now = datetime.now()
+    for alarm in alarms:
+        if now.hour == alarm['hour'] and now.minute == alarm['minute']:
+            play_alarm(alarm['sound'])
+    root.after(60000, check_alarms)  # Check every minute
+
     
 pygame.mixer.init()
 
