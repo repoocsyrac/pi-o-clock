@@ -43,13 +43,27 @@ def open_alarm_setting():
         minute = int(minute_var.get())
         sound = sound_var.get()
         add_alarm(hour, minute, sound)
+        update_alarm_list()
         setting_window.destroy()
 
     tk.Button(setting_window, text="Save", command=save_alarm).pack(pady=10, padx=10)
 
     setting_window.mainloop()
 
+def update_alarm_list():
+    for widget in alarm_list_frame.winfo_children():
+        widget.destroy()  # Clear old list
 
+    for alarm in alarms:
+        alarm_str = f"{alarm['hour']:02d}:{alarm['minute']:02d} - {alarm['sound']}"
+        label = tk.Label(alarm_list_frame, text=alarm_str)
+        label.pack()
+
+        def delete_alarm(a=alarm):
+            alarms.remove(a)
+            update_alarm_list()
+
+        tk.Button(alarm_list_frame, text="Delete", command=delete_alarm).pack()
 
 # Init pygame mixer for sound
 pygame.mixer.init()
@@ -67,6 +81,8 @@ time_label = tk.Label(root, text="", font=("Helvetica", 48))
 time_label.pack(expand=True)
 set_alarm_button = tk.Button(root, text="Set Alarm", command=open_alarm_setting, font=("Helvetica", 16))
 set_alarm_button.pack(pady=10)
+alarm_list_frame = tk.Frame(root)
+alarm_list_frame.pack()
 
 # Start updating the clock
 update_time()
