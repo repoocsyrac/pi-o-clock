@@ -128,7 +128,7 @@ def toggle_alarm_list():
     print()
 
 def toggle_fullscreen(event=None):
-    root.attributes("-fullscreen", True)
+    root.attributes("-fullscreen", not root.attributes('-fullscreen'))
 
 def exit_fullscreen(event=None):
     root.attributes("-fullscreen", False)
@@ -152,6 +152,7 @@ alarms = []
 settings_icon = tk.PhotoImage(file="images/settings-32.png")
 alarm_list_icon = tk.PhotoImage(file="images/alarm-32.png")
 add_alarm_icon = tk.PhotoImage(file="images/add-32.png")
+fullscreen_icon = tk.PhotoImage(file="images/fullscreen-32.png")
 
 # UI Elements
 
@@ -159,14 +160,14 @@ time_label = tk.Label(root, text="", font=("Helvetica", 72))
 #time_label.pack(expand=True)
 time_label.place(relx=0.5, rely=0.3, anchor='center')  # Centered at 30% height of the window
 
-set_alarm_button = tk.Button(root, image=add_alarm_icon, command=open_alarm_setting, font=("Helvetica", 24))
+set_alarm_button = tk.Button(root, image=add_alarm_icon, command=open_alarm_setting)
 set_alarm_button.place(relx=0.15, rely=0.9, anchor='w')  # 20% from left, same height as settings button
 #set_alarm_button.pack(pady=20)
 
 alarm_list_frame = tk.Frame(root)
 #alarm_list_frame.pack()
 
-stop_alarm_button = tk.Button(root, text="Stop Alarm", command=stop_alarm, font=("Helvetica", 24))
+stop_alarm_button = tk.Button(root, text="Stop Alarm", command=stop_alarm)
 #stop_alarm_button.pack(pady=20)
 stop_alarm_button.place(relx=0.5, rely=0.6, anchor='center')  # Positioned 60% from the top
 stop_alarm_button.place_forget()  # Hide it at first
@@ -178,9 +179,12 @@ settings_button.place(relx=0.05, rely=0.9, anchor='w')  # 5% from left, 90% from
 background_label = tk.Label(root)
 #background_label.pack(fill="both", expand=True)
 
-toggle_list_button = tk.Button(root, image=alarm_list_icon, command=toggle_alarm_list, font=("Helvetica", 24))
+toggle_list_button = tk.Button(root, image=alarm_list_icon, command=toggle_alarm_list)
 #toggle_list_button.pack(pady=20)
 toggle_list_button.place(relx=0.25, rely=0.9, anchor='w')
+
+fullscreen_button = tk.Button(root, image=fullscreen_icon, command=toggle_fullscreen)
+fullscreen_button.place(relx=0.35, rely=0.9, anchor='w')
 
 
 # Start updating the clock
