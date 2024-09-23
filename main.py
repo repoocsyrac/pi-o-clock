@@ -184,7 +184,7 @@ toggle_list_button = tk.Button(root, image=alarm_list_icon, command=toggle_alarm
 toggle_list_button.place(relx=0.25, rely=0.9, anchor='w')
 
 fullscreen_button = tk.Button(root, image=fullscreen_icon, command=toggle_fullscreen)
-fullscreen_button.place(relx=0.35, rely=0.9, anchor='w')
+fullscreen_button.place(relx=0.9, rely=0.9, anchor='w')
 
 
 # Start updating the clock
