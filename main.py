@@ -188,26 +188,31 @@ time_label = tk.Label(root, text="", font=("Helvetica", 72))
 time_label.place(relx=0.5, rely=0.3, anchor='center')  # Centered at 30% height of the window
 
 set_alarm_button = tk.Button(root, image=add_alarm_icon, command=open_alarm_setting)
+set_alarm_button.configure(background=root["bg"])
 set_alarm_button.place(relx=0.15, rely=0.9, anchor='w')  # 20% from left, same height as settings button
 #set_alarm_button.pack(pady=20)
 
 stop_alarm_button = tk.Button(root, text="Stop Alarm", command=stop_alarm)
 #stop_alarm_button.pack(pady=20)
+stop_alarm_button.configure(background=root["bg"])
 stop_alarm_button.place(relx=0.5, rely=0.6, anchor='center')  # Positioned 60% from the top
 stop_alarm_button.place_forget()  # Hide it at first
 
-settings_button = ttk.Button(root, image=settings_icon, command=open_settings)
+settings_button = tk.Button(root, image=settings_icon, command=open_settings)
 #settings_button.pack(pady=20)
+settings_button.configure(background=root["bg"])
 settings_button.place(relx=0.05, rely=0.9, anchor='w')  # 5% from left, 90% from top (bottom-left corner)
 
 background_label = tk.Label(root)
 #background_label.pack(fill="both", expand=True)
 
 toggle_list_button = tk.Button(root, image=alarm_list_icon, command=show_alarm_list)
+toggle_list_button.configure(background=root["bg"])
 #toggle_list_button.pack(pady=20)
 toggle_list_button.place(relx=0.25, rely=0.9, anchor='w')
 
 fullscreen_button = tk.Button(root, image=fullscreen_icon, command=toggle_fullscreen)
+fullscreen_button.configure(background=root["bg"])
 fullscreen_button.place(relx=0.9, rely=0.9, anchor='w')
 
 
