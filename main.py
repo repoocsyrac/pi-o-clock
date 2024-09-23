@@ -131,6 +131,12 @@ def toggle_alarm_list():
         alarm_list_frame.pack()  # Show the alarm list
         toggle_list_button.config(text="Hide Alarms")
 
+def toggle_fullscreen(event=None):
+    root.attributes("-fullscreen", True)
+
+def exit_fullscreen(event=None):
+    root.attributes("-fullscreen", False)
+
 # Init pygame mixer for sound
 pygame.mixer.init()
 
@@ -139,6 +145,10 @@ pygame.mixer.init()
 root = ttk.Window(themename="superhero")
 root.title("Pi-o-Clock")
 root.geometry("800x480")
+
+# Keybindings
+root.bind("<F11>", toggle_fullscreen)
+root.bind("<Escape>", exit_fullscreen)
 
 # List to store alarm times and sounds
 alarms = []
