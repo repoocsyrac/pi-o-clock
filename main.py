@@ -48,6 +48,8 @@ def open_alarm_setting():
         file_path = tk.filedialog.askopenfilename(title="Select Alarm Sound", filetypes=[("Sound files", "*.mp3 wav")])
         if file_path:
             sound_var.set(file_path)
+        setting_window.grab_set()
+        setting_window.focus_force()
 
     tk.Button(setting_window, text="Choose Sound", command=choose_custom_sound).pack(pady=5)
 
