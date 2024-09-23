@@ -143,22 +143,28 @@ root.geometry("800x480")
 # List to store alarm times and sounds
 alarms = []
 
+# Load images
+settings_icon = tk.PhotoImage(file="images/settings-32.png")
+alarm_list_icon = tk.PhotoImage(file="images/alarm-32.png")
+add_alarm_icon = tk.PhotoImage(file="images/add-32.png")
+
 # UI Elements
-time_label = tk.Label(root, text="", font=("Helvetica", 48))
+time_label = tk.Label(root, text="", font=("Helvetica", 64))
 time_label.pack(expand=True)
-set_alarm_button = tk.Button(root, text="Set Alarm", command=open_alarm_setting, font=("Helvetica", 16))
-set_alarm_button.pack(pady=10)
+set_alarm_button = tk.Button(root, image=add_alarm_icon, command=open_alarm_setting, font=("Helvetica", 24))
+set_alarm_button.pack(pady=20)
 alarm_list_frame = tk.Frame(root)
 alarm_list_frame.pack()
-stop_alarm_button = tk.Button(root, text="Stop Alarm", command=stop_alarm, font=("Helvetica", 16))
-stop_alarm_button.pack(pady=10)
+stop_alarm_button = tk.Button(root, text="Stop Alarm", command=stop_alarm, font=("Helvetica", 24))
+stop_alarm_button.pack(pady=20)
 stop_alarm_button.pack_forget()  # Hide it at first
-settings_button = tk.Button(root, text="Settings", command=open_settings, font=("Helvetica", 16))
-settings_button.pack(pady=10)
+#settings_button = tk.Button(root, text="Settings", command=open_settings, font=("Helvetica", 24))
+settings_button = ttk.Button(root, image=settings_icon, command=open_settings)
+settings_button.pack(pady=20)
 background_label = tk.Label(root)
 background_label.pack(fill="both", expand=True)
-toggle_list_button = tk.Button(root, text="Hide Alarms", command=toggle_alarm_list)
-toggle_list_button.pack(pady=10)
+toggle_list_button = tk.Button(root, text="Hide Alarms", command=toggle_alarm_list, font=("Helvetica", 24))
+toggle_list_button.pack(pady=20)
 
 
 # Start updating the clock
