@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.filedialog
+from tkinter import colorchooser
 from datetime import datetime
 from datetime import timedelta
 import pygame
@@ -93,6 +94,33 @@ def update_alarm_list():
 
         tk.Button(alarm_list_frame, text="Delete", command=delete_alarm).pack()
 
+def open_settings():
+    settings_window = tk.Toplevel(root)
+    settings_window.title("Settings")
+    settings_window.geometry("300x300")
+
+    def change_bg_color():
+        color_code = colorchooser.askcolor(title="Choose background color")[1]
+        if color_code:
+            root.config(bg=color_code)
+
+    def change_clock_color():
+        color_code = colorchooser.askcolor(title="Choose clock text color")[1]
+        if color_code:
+            time_label.config(fg=color_code)
+
+    def set_background_image():
+        file_path = tk.filedialog.askopenfilename(title="Select Background Image", filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
+        if file_path:
+            bg_image = tk.PhotoImage(file=file_path)
+            background_label.config(image=bg_image)
+            background_label.image = bg_image
+
+    tk.Button(settings_window, text="Change Background Color", command=change_bg_color).pack(pady=10)
+    tk.Button(settings_window, text="Change Clock Color", command=change_clock_color).pack(pady=10)
+    tk.Button(settings_window, text="Set Background Image", command=set_background_image).pack(pady=10)
+
+
 # Init pygame mixer for sound
 pygame.mixer.init()
 
@@ -113,6 +141,12 @@ alarm_list_frame = tk.Frame(root)
 alarm_list_frame.pack()
 stop_alarm_button = tk.Button(root, text="Stop Alarm", command=stop_alarm, font=("Helvetica", 16))
 stop_alarm_button.pack(pady=10)
+stop_alarm_button.pack_forget()  # Hide it at first
+settings_button = tk.Button(root, text="Settings", command=open_settings, font=("Helvetica", 16))
+settings_button.pack(pady=10)
+background_label = tk.Label(root)
+background_label.pack(fill="both", expand=True)
+
 
 # Start updating the clock
 update_time()
