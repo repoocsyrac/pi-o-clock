@@ -7,7 +7,10 @@ import pygame
 import ttkbootstrap as ttk
 
 def update_time():
-    now = datetime.now().strftime("%H:%M:%S")
+    if show_seconds.get():
+        now = datetime.now().strftime("%H:%M:%S")  # Show hours, minutes, seconds
+    else:
+        now = datetime.now().strftime("%H:%M")  # Show only hours and minutes
     time_label.config(text=now)
     root.after(1000, update_time)
 
@@ -86,7 +89,9 @@ def open_settings():
     settings_window = tk.Toplevel(root)
     settings_window.title("Settings")
     settings_window.geometry("300x300")
-
+    
+    # TODO add brightness changer and other settings here
+    
     def change_bg_color():
         color_code = colorchooser.askcolor(title="Choose background color")[1]
         if color_code:
@@ -104,9 +109,10 @@ def open_settings():
             background_label.config(image=bg_image)
             background_label.image = bg_image
 
-    tk.Button(settings_window, text="Change Background Color", command=change_bg_color).pack(pady=10)
-    tk.Button(settings_window, text="Change Clock Color", command=change_clock_color).pack(pady=10)
-    tk.Button(settings_window, text="Set Background Image", command=set_background_image).pack(pady=10)
+    ttk.Button(settings_window, text="Change Background Color", command=change_bg_color).pack(pady=10)
+    ttk.Button(settings_window, text="Change Clock Color", command=change_clock_color).pack(pady=10)
+    ttk.Button(settings_window, text="Set Background Image", command=set_background_image).pack(pady=10)
+    ttk.Checkbutton(settings_window, text="Show Seconds", variable=show_seconds).pack(pady=10)
 
 def show_alarm_list():
     def update_alarm_list():
@@ -138,6 +144,7 @@ def toggle_fullscreen(event=None):
 def exit_fullscreen(event=None):
     root.attributes("-fullscreen", False)
 
+
 # Init pygame mixer for sound
 pygame.mixer.init()
 
@@ -149,6 +156,9 @@ root.geometry("800x480")
 # Keybindings
 root.bind("<F11>", toggle_fullscreen)
 root.bind("<Escape>", exit_fullscreen)
+
+# Variable to track whether to show seconds or not
+show_seconds = tk.BooleanVar(value=True)  # Start with seconds shown by default
 
 # List to store alarm times and sounds
 alarms = []
