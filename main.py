@@ -4,6 +4,7 @@ from tkinter import colorchooser
 from datetime import datetime
 from datetime import timedelta
 import pygame
+import ttkbootstrap as ttk
 
 def update_time():
     now = datetime.now().strftime("%H:%M:%S")
@@ -134,9 +135,10 @@ def toggle_alarm_list():
 pygame.mixer.init()
 
 # Main window
-root = tk.Tk()
+#root = tk.Tk()
+root = ttk.Window(themename="superhero")
 root.title("Pi-o-Clock")
-root.geometry("480x320")
+root.geometry("800x480")
 
 # List to store alarm times and sounds
 alarms = []
