@@ -75,27 +75,12 @@ def open_alarm_setting():
         minute = int(minute_var.get())
         sound = sound_var.get()
         add_alarm(hour, minute, sound)
-        update_alarm_list()
+        #update_alarm_list()
         setting_window.destroy()
 
     tk.Button(setting_window, text="Save", command=save_alarm).pack(pady=10, padx=10)
 
     setting_window.mainloop()
-
-def update_alarm_list():
-    for widget in alarm_list_frame.winfo_children():
-        widget.destroy()  # Clear old list
-
-    for alarm in alarms:
-        alarm_str = f"{alarm['hour']:02d}:{alarm['minute']:02d} - {alarm['sound']}"
-        label = tk.Label(alarm_list_frame, text=alarm_str)
-        label.pack()
-
-        def delete_alarm(a=alarm):
-            alarms.remove(a)
-            update_alarm_list()
-
-        tk.Button(alarm_list_frame, text="Delete", command=delete_alarm).pack()
 
 def open_settings():
     settings_window = tk.Toplevel(root)
@@ -123,9 +108,29 @@ def open_settings():
     tk.Button(settings_window, text="Change Clock Color", command=change_clock_color).pack(pady=10)
     tk.Button(settings_window, text="Set Background Image", command=set_background_image).pack(pady=10)
 
-def toggle_alarm_list():
-    # TO-DO show alarm list in new window (deal with alarm_list_frame)
-    print()
+def show_alarm_list():
+    def update_alarm_list():
+        for widget in alarm_list_frame.winfo_children():
+            widget.destroy()  # Clear old list
+
+        for alarm in alarms:
+            alarm_str = f"{alarm['hour']:02d}:{alarm['minute']:02d} - {alarm['sound']}"
+            label = tk.Label(alarm_list_frame, text=alarm_str)
+            label.pack()
+
+            def delete_alarm(a=alarm):
+                alarms.remove(a)
+                update_alarm_list()
+
+            tk.Button(alarm_list_frame, text="Delete", command=delete_alarm).pack()
+    
+    alarm_list_window = tk.Toplevel(root)
+    alarm_list_window.title("Alarms")
+    alarm_list_window.geometry("500x500")
+    alarm_list_frame = tk.Frame(alarm_list_window)
+    alarm_list_frame.pack()
+
+    update_alarm_list()
 
 def toggle_fullscreen(event=None):
     root.attributes("-fullscreen", not root.attributes('-fullscreen'))
@@ -164,9 +169,6 @@ set_alarm_button = tk.Button(root, image=add_alarm_icon, command=open_alarm_sett
 set_alarm_button.place(relx=0.15, rely=0.9, anchor='w')  # 20% from left, same height as settings button
 #set_alarm_button.pack(pady=20)
 
-alarm_list_frame = tk.Frame(root)
-#alarm_list_frame.pack()
-
 stop_alarm_button = tk.Button(root, text="Stop Alarm", command=stop_alarm)
 #stop_alarm_button.pack(pady=20)
 stop_alarm_button.place(relx=0.5, rely=0.6, anchor='center')  # Positioned 60% from the top
@@ -179,7 +181,7 @@ settings_button.place(relx=0.05, rely=0.9, anchor='w')  # 5% from left, 90% from
 background_label = tk.Label(root)
 #background_label.pack(fill="both", expand=True)
 
-toggle_list_button = tk.Button(root, image=alarm_list_icon, command=toggle_alarm_list)
+toggle_list_button = tk.Button(root, image=alarm_list_icon, command=show_alarm_list)
 #toggle_list_button.pack(pady=20)
 toggle_list_button.place(relx=0.25, rely=0.9, anchor='w')
 
