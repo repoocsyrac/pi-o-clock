@@ -45,7 +45,7 @@ def open_alarm_setting():
 
     # Function to select a custom sound file
     def choose_custom_sound():
-        file_path = tk.filedialog.askopenfilename(title="Select Alarm Sound", filetypes=[("MP3 files", "*.mp3")])
+        file_path = tk.filedialog.askopenfilename(title="Select Alarm Sound", filetypes=[("Sound files", "*.mp3 wav")])
         if file_path:
             sound_var.set(file_path)
 
