@@ -17,11 +17,11 @@ def add_alarm(hour, minute, sound):
 def play_alarm(sound_file):
     pygame.mixer.music.load(sound_file)
     pygame.mixer.music.play(loops=-1) # Loops until stopped by user
-    stop_alarm_button.pack()  # Show the Stop Alarm button when alarm rings
+    stop_alarm_button.place(relx=0.5, rely=0.6, anchor='center')  # Show the Stop Alarm button when alarm rings
 
 def stop_alarm():
     pygame.mixer.music.stop()
-    stop_alarm_button.pack_forget()  # Hide the Stop Alarm button after stopping the alarm
+    stop_alarm_button.place_forget()  # Hide the Stop Alarm button after stopping the alarm
 
 def check_alarms():
     # Reset flags so the alarm can ring again the next day
