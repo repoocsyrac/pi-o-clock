@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.filedialog
 from datetime import datetime
+from datetime import timedelta
 import pygame
 
 def update_time():
@@ -19,12 +20,24 @@ def stop_alarm():
     pygame.mixer.music.stop()
 
 def check_alarms():
+    # Reset flags so the alarm can ring again the next day
+    def reset_alarms():
+        for alarm in alarms:
+            alarm['has_rung'] = False  
+
     now = datetime.now()
     for alarm in alarms:
         if now.hour == alarm['hour'] and now.minute == alarm['minute'] and not alarm['has_rung']:
             play_alarm(alarm['sound'])
             alarm['has_rung'] = True
-    root.after(1000, check_alarms)  # Check every second
+
+    # Reset "has_rung" flag at midnight to repeat the alarm every day
+    midnight = now.replace(hour=0, minute=0, second=1, microsecond=0) + timedelta(days=1)
+    delay_until_midnight = int((midnight - now).total_seconds() * 1000)
+    root.after(delay_until_midnight, reset_alarms)
+
+    # Check every second
+    root.after(1000, check_alarms) 
 
 def open_alarm_setting():
     setting_window = tk.Toplevel(root)
