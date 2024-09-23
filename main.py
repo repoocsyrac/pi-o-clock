@@ -115,10 +115,16 @@ def open_settings():
             background_label.config(image=bg_image)
             background_label.image = bg_image
 
+    def set_brightness(val):
+        brightness_value = int(float(val))
+        #os.system(f"echo {brightness_value} | sudo tee /sys/class/backlight/rpi_backlight/brightness")
+
     ttk.Button(settings_window, text="Change Background Color", command=change_bg_color).pack(pady=10)
     ttk.Button(settings_window, text="Change Clock Color", command=change_clock_color).pack(pady=10)
     ttk.Button(settings_window, text="Set Background Image", command=set_background_image).pack(pady=10)
     ttk.Checkbutton(settings_window, text="Show Seconds", variable=show_seconds).pack(pady=10)
+    tk.Label(settings_window, text="Adjust Brightness").pack(pady=10)
+    ttk.Scale(settings_window, from_=0, to=255, orient='horizontal', command=set_brightness).pack()
 
 def show_alarm_list():
     def update_alarm_list():
