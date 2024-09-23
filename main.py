@@ -122,6 +122,13 @@ def open_settings():
     tk.Button(settings_window, text="Change Clock Color", command=change_clock_color).pack(pady=10)
     tk.Button(settings_window, text="Set Background Image", command=set_background_image).pack(pady=10)
 
+def toggle_alarm_list():
+    if alarm_list_frame.winfo_viewable():
+        alarm_list_frame.pack_forget()  # Hide the alarm list
+        toggle_list_button.config(text="Show Alarms")
+    else:
+        alarm_list_frame.pack()  # Show the alarm list
+        toggle_list_button.config(text="Hide Alarms")
 
 # Init pygame mixer for sound
 pygame.mixer.init()
@@ -148,6 +155,8 @@ settings_button = tk.Button(root, text="Settings", command=open_settings, font=(
 settings_button.pack(pady=10)
 background_label = tk.Label(root)
 background_label.pack(fill="both", expand=True)
+toggle_list_button = tk.Button(root, text="Hide Alarms", command=toggle_alarm_list)
+toggle_list_button.pack(pady=10)
 
 
 # Start updating the clock
