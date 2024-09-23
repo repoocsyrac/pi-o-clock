@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.filedialog
 from datetime import datetime
 import pygame
 
@@ -41,6 +42,14 @@ def open_alarm_setting():
 
     tk.Label(setting_window, text="Alarm Sound").pack(pady=5, padx=50)
     tk.Entry(setting_window, textvariable=sound_var).pack(padx=50)
+
+    # Function to select a custom sound file
+    def choose_custom_sound():
+        file_path = tk.filedialog.askopenfilename(title="Select Alarm Sound", filetypes=[("MP3 files", "*.mp3")])
+        if file_path:
+            sound_var.set(file_path)
+
+    tk.Button(setting_window, text="Choose Sound", command=choose_custom_sound).pack(pady=5)
 
     def save_alarm():
         hour = int(hour_var.get())
