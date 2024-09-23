@@ -13,7 +13,7 @@ def add_alarm(hour, minute, sound):
 
 def play_alarm(sound_file):
     pygame.mixer.music.load(sound_file)
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(loops=-1) # Loops until stopped by user
 
 def stop_alarm():
     pygame.mixer.music.stop()
