@@ -5,6 +5,12 @@ from datetime import datetime
 from datetime import timedelta
 import pygame
 import ttkbootstrap as ttk
+import os
+
+# Disable sleep etc
+#os.system("xset s off")  # Disable screensaver
+#os.system("xset -dpms")  # Disable display power management
+#os.system("xset s noblank")  # Prevent screen from blanking
 
 def update_time():
     if show_seconds.get():
