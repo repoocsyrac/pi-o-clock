@@ -34,13 +34,13 @@ def open_alarm_setting():
     sound_var = tk.StringVar(value="default.wav")
 
     tk.Label(setting_window, text="Hour").pack(pady=5, padx=50)
-    tk.Entry(setting_window, textvariable=hour_var).pack(pady=5, padx=50)
+    tk.Entry(setting_window, textvariable=hour_var).pack(padx=50)
     
     tk.Label(setting_window, text="Minute").pack(pady=5, padx=50)
-    tk.Entry(setting_window, textvariable=minute_var).pack(pady=5, padx=50)
+    tk.Entry(setting_window, textvariable=minute_var).pack(padx=50)
 
     tk.Label(setting_window, text="Alarm Sound").pack(pady=5, padx=50)
-    tk.Entry(setting_window, textvariable=sound_var).pack(pady=5, padx=50)
+    tk.Entry(setting_window, textvariable=sound_var).pack(padx=50)
 
     def save_alarm():
         hour = int(hour_var.get())
